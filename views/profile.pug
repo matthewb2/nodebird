@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  .timeline
+    .following.half
+      h2 Followings List
+      if user.Followings
+        for following in user.Followings
+          div= following.nick
+    .followers.half
+      h2 Followers List
+      if user.Followers
+        for follower in user.Followers
+          div= follower.nick

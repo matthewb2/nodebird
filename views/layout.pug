@@ -1,0 +1,41 @@
+doctype
+html
+  head
+    meta(charset='UTF-8')
+    title= title
+    meta(name='viewport' content='width=device-width, user-scalable=no')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    link(rel='stylesheet' href='/main.css')
+  body
+    .container
+      .profile-wrap
+        .profile
+          if user && user.id
+            .user-name='Welcome, ' + user.nick + '!'
+            .half
+              div Following
+              .count.following-count= user.Followings && user.Followings.length || 0
+            .half
+              div Follower
+              .count.follower-count= user.Followers && user.Followers.length || 0
+            input#my-id(type='hidden' value=user.id)
+            a#my-profile.btn(href='profile') My Profile
+            a#logout.btn(href='/auth/logout') Logout
+          else
+            form#login-form(action='/auth/login' method='POST')
+              .input-group
+                label(for='email') Email
+                input#email(type='email' name='email' required autofocus)
+              .input-group
+                label(for='password') Password
+                input#password(type='password' name='password' required)
+              if loginError
+                .error-message= loginError
+              button#login.btn(type='submit') Login
+              a#join.btn(href='/join') Join
+              
+              //a#kakao.btn(href='/auth/kakao') KakaoTalk
+        footer
+          //| Made by&nbsp;
+          //a(href='http://devheedoo.github.io' target='_blank') Heedo Kim
+      block content
